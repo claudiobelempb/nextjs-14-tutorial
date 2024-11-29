@@ -1,9 +1,12 @@
+import Form from "@/components/Form";
+import UserList from "@/components/UserList";
 import React from "react";
 
-export default function Actions() {
+export default function ActionsPage() {
     return (
-        <div>
-            <h1>Page Actions</h1>
-        </div>
+        <>
+            <Form />
+            <UserList />
+        </>
     );
 }
