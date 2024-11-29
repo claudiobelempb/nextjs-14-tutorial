@@ -1,6 +1,7 @@
 "use server";
 import { readFile, writeFile } from "fs/promises";
 import { revalidatePath } from "next/cache";
+// import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 type User = {
@@ -10,6 +11,7 @@ type User = {
 };
 
 export const createUser = async (formData: FormData) => {
+    await new Promise((resolve) => setTimeout(resolve, 3000));
     const firstName = formData.get("firstName") as string;
     const lastName = formData.get("lastName") as string;
     // const rawData = Object.fromEntries(formData);
@@ -17,11 +19,11 @@ export const createUser = async (formData: FormData) => {
     const newUser: User = { id: Date.now().toString(), firstName, lastName };
     try {
         await saveUser(newUser);
+        revalidatePath("/actions");
     } catch (error) {
         console.log(error);
     }
-    redirect("/");
-    // revalidatePath("/actions");
+    // redirect("/");
     // console.log({ firstName, lastName });
     // redirect("/");
 };

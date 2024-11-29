@@ -1,8 +1,18 @@
 "use client";
-import { createUser } from "@/utils/actions";
 import React from "react";
+import { createUser } from "@/utils/actions";
+import { useFormStatus, useFormState } from "react-dom";
 
 function Form() {
+    const SubmitButton = () => {
+        const { pending } = useFormStatus();
+        return (
+            <button type="submit" className={btnStyle} disabled={pending}>
+                {pending ? "submitting..." : "submit"}
+            </button>
+        );
+    };
+
     return (
         <form action={createUser} className={formStyle}>
             <h2 className="text-2xl capitalize mb-4">create user</h2>
@@ -22,9 +32,7 @@ function Form() {
                 required
                 className={inputStyle}
             />
-            <button type="submit" className={btnStyle}>
-                submit
-            </button>
+            <SubmitButton />
         </form>
     );
 }
